@@ -37,16 +37,33 @@ func main() {
 		go vanilla(g)
 	}
 	for s:=0; s<LOOP * LOOP; s++ {
-		log.Info(fmt.Sprintf("main sleep(%d)",s))
+		log_info(fmt.Sprintf("main sleep(%d)",s))
 		time.Sleep(time.Second)
 	}
 }
 func vanilla(a int) {
+	log_info(fmt.Sprintf("(id %d)goroutine : start", a))
 	for i:=0; i<LOOP; i++ {
-		log.Info(fmt.Sprintf("(%d)goroutine : step %d", a, i))
+		log_debug(fmt.Sprintf("(id %d)goroutine : step %d", a, i))
 		for s:=0; s<a; s++ {
 			time.Sleep(time.Second)
 		}
+		if i % 3 == 0 {
+			log_warn(fmt.Sprintf("(id %d)goroutine : some trouble occurred : step %d", a, i))
+		}
 	}
-	log.Info(fmt.Sprintf("(%d)goroutine : finished", a))
+	log_info(fmt.Sprintf("(id %d)goroutine : finished", a))
 }
+func log_debug(s string) {
+	log.Debug(s)
+}
+func log_info(s string) {
+	log.Info(s)
+}
+func log_warn(s string) {
+	log.Warn(s)
+}
+func log_error(s string) {
+	log.Error(s)
+}
+
