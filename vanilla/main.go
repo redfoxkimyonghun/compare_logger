@@ -2,13 +2,13 @@ package main
 import "fmt"
 import "time"
 
-const LOOP = 5
+const LOOP = 15
 
 func main() {
-	for g:=0; g<5; g++ {
+	for g:=0; g<LOOP; g++ {
 		go vanilla(g)
 	}
-	for s:=0; s<25; s++ {
+	for s:=0; s<LOOP * LOOP; s++ {
 		fmt.Println(fmt.Sprintf("main sleep(%d)",s))
 		time.Sleep(time.Second)
 	}
