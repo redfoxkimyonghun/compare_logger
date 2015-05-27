@@ -1,3 +1,3 @@
-# compare_logger
+goのloggerいろいろ使ってみるー
 
-goのloggerいろいろ使ってみる
+まずはseelog
