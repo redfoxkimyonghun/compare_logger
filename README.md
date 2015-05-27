@@ -1,0 +1,3 @@
+goのloggerいろいろ使ってみるー
+
+まずはseelog
