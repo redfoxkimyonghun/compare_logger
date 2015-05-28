@@ -8,20 +8,22 @@ const LOOP = 15
 func configLogger() {
     config := `
 <seelog type="sync">
-    <outputs>
-        <filter levels="trace,debug,info">
-            <console formatid="ltsv"/>
-        </filter>
-        <filter levels="warn,error,critical">
-            <console formatid="ltsv_error"/>
-        </filter>
-        <file formatid="ltsv" path="result.log"/>
-    </outputs>
-    <formats>
-        <format id="ltsv" format="time:%Date(2006-01-02T15:04:05.000Z07:00)%tlev:%l%tmsg:%Msg%n"/>
-        <format id="ltsv_error"
-            format="%EscM(31)time:%Date(2006-01-02T15:04:05.000Z07:00)%tlev:%l%tmsg:%Msg%EscM(0)%n"/>
-    </formats>
+  <outputs formatid="common">
+  <console />
+
+  <filter levels="trace,debug">
+    <file path="./logs/debug.log" />
+  </filter>
+  <filter levels="info">
+    <file path="./logs/info.log" />
+  </filter>
+  <filter levels="error,critical">
+	<file path="./logs/error.log" />
+  </filter>
+  </outputs>
+  <formats>
+    <format id="common" format='{"level":"%LEVEL","time":"%UTCDateT%UTCTime","msg":"%Msg"}%n' />
+  </formats>
 </seelog>`
 
     logger, err := log.LoggerFromConfigAsBytes([]byte(config))
@@ -29,6 +31,7 @@ func configLogger() {
         panic(err)
     }
     log.ReplaceLogger(logger)
+
 }
 
 func main() {
